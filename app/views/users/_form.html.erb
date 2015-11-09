@@ -1,0 +1,21 @@
+<%= form_for @user, html: { multipart: true } do |f|  %>
+
+<p>
+	<%= f.label :username  %>
+	<%= f.text_field :username %>
+
+</p>
+<p>
+	<%= f.label :password %>
+	<%= f.password_field :password %>
+</p>
+<p>
+	<%= f.label :image %>
+	<%= f.file_field :image %>
+</p>
+
+
+<p>
+	<%= f.submit %>
+</p>
+<% end %>

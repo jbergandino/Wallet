@@ -1,0 +1,99 @@
+<h1>TESTING SHOW CARD</h1>
+<br>
+
+<h2 class="border_test">My Cards:</h2>
+
+  <!-- Loop thru Cards array to display all cards created by this user -->
+<% if @userOwnedCards.length > 0 %>
+	<div class="my_cards border_test">
+		<% @userOwnedCards.each do |card| %>
+			
+			<p class="card_show">Card Type:</p>
+			<div class="card_data"> <%= card.cardcompany %> </div>
+			<br>
+			<p class="card_show">Card Id:</p>
+			<div class="card_data"> <%= card.id %> </div>
+			<br>
+			<p class="card_show">Card Expiration:</p>
+			<div class="card_data"> <%= card.cardexp %> </div>
+			<br>
+
+			<!-- See who you are sharing your owned card with, if owner is not sharing with anyone then let owner know -->
+			<!-- If owner of card is sharing, display users who they are currently sharing with  -->
+			<% thisCardSharedWith = Sharedcard.where(card_id: card.id) %>
+			<% if thisCardSharedWith.length > 0 %>
+				
+					<p>This Card is Currently Shared With User Id Number(s):</p>
+					<% thisCardSharedWith.each do |card| %>
+						<% if card.user_id != @thisId %>
+							<p><%= card.user_id %></p>
+						<% end %>
+					<% end %>
+
+			<% else %>
+				<p>This Card is Currently Shared with No One</p>
+			<% end %>
+			<br>
+			<%= link_to 'Share This Card With Others', root_path %>
+			<br>			
+			<br>
+			<!-- Form to Share owner's card with other users -->
+			<%= form_for @sharedCard, :url => sharedcards_path, method: :post do |f| %>
+			  <%= f.label "User ID to Share With:" %>
+			  <%= f.text_field :user_id %>
+			  <%= f.hidden_field :card_id, :value => card.id %>
+			  <br>
+			  <br>
+			  <%= f.submit "Share Card!"  %>
+			<% end %>
+
+			<br>
+			<br>
+
+			<% @deleteCard = Card.find(card.id) %>
+			<% @deleteSharedCard = Sharedcard.where(card_id:card.id) %>
+
+			<%= link_to 'Remove This Card', card_path(card.id), method: :delete %>
+			<br>
+			<hr>
+
+		<% end %>
+	</div>
+<% else %>
+	<div class="card_data"> No Cards Added Yet! </div>
+<% end %>
+
+
+
+  <!-- Loop thru Sharedcards array to display all cards accessible to this user -->
+
+<h2 class="border_test">Cards Shared With Me:</h2>
+
+<% if @userCardArray.length > 0 %>
+	
+	<%  for i in 0..@userCardArray.length-1 %>
+		
+			<p class="card_show">Shared By User Id:<%= Card.where(id:@userCardArray[i]).first.user_id  %></p>	
+			<br>		
+
+			<p class="card_show">Card Type:</p>
+			<div class="card_data"> <%= Card.where(id:@userCardArray[i]).first.cardcompany %> </div>
+			<br>
+			<p class="card_show">Card Id:</p>
+			<div class="card_data"> <%= Card.where(id:@userCardArray[i]).first.id %> </div>
+			<br>
+			<p class="card_show">Card Expiration:</p>
+			<div class="card_data"> <%= Card.where(id:@userCardArray[i]).first.cardexp %> </div>
+			<br>
+			<hr>
+	<% end %>
+<% else %>
+	<p class="card_data">No Cards Currently Being Shared With Me</p>
+<% end %>
+
+	
+
+
+
+
+

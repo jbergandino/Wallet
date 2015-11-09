@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Wallet</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+	<header>
+		<ul class="header_links">
+			<% if session[:user_id] %>
+				<li><%= link_to 'Logout', logout_path%></li>								
+				<li><%= link_to 'Preferences', profile_path(session[:user_id]) %></li>		
+				<li><%= link_to 'Upload New Card', new_card_path %></li>						
+				<li><%= link_to 'My Cards', card_path(session[:user_id]) %></li>						
+				<li><%= link_to 'Home', root_path %></li>
+			<% else %>
+				<li><%= link_to 'Login', login_path %></li>
+				<li><%= link_to 'Create New User', new_user_path %></li>
+				<li><%= link_to 'Home', root_path %></li>
+			<% end %>
+		</ul>
+		<%= image_tag 'wallet-logo.png', :class => 'wallet_logo' %>
+	</header>
+
+
+	<div class="body_content_wrapper">
+		<% if flash[:notice] %>
+			<p class="flash_message"><%= flash[:notice] %></p>
+			<br>
+		<% end %>	
+		<% if flash[:alert] %>
+			<p class="flash_message"><%= flash[:alert] %></p>
+			<br>
+		<% end %>
+
+		<%= yield %>
+
+	</div>
+	<footer>
+		<% if session[:user_id] %>
+			<p>Currently Signed in as Username: <%= User.find(session[:user_id]).username %> ID: <%= User.find(session[:user_id]).id %> </p>
+		<% end %>
+	</footer>
+</body>
+</html>

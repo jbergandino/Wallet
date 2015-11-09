@@ -1,0 +1,18 @@
+<h1>Sessions#login</h1>
+<p>Find me in app/views/sessions/login.html.erb</p>
+
+
+<h1>Login</h1>
+<br>
+
+
+<%= form_tag sessions_path, :method => :post do %>
+
+  <%= label_tag :username %>
+  <%= text_field_tag :username %>
+  <%= label_tag :password %>
+  <%= password_field_tag :password %>
+
+  <%= submit_tag "Login"  %>
+
+<% end %>
