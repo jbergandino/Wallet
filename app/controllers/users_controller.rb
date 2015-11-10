@@ -35,23 +35,33 @@ class UsersController < ApplicationController
     else
       if user.errors.full_messages.any?
         user.errors.full_messages.each do |message| 
-        # binding.pry
         flash[:alert] = "Message Alert"
       end
 
       end
-      # binding.pry
       flash[:alert] = "Error Creating User, Please Try Again"
       redirect_to new_user_path   
     end
 
-      # redirect_to new_user_path   
   end
 
 
   def edit
+    @user = User.find(session[:user_id])
   end
   def update
+    @user = User.find(session[:user_id])
+    @user.update(params.require(:user).permit(:username, :password))
+    flash[:notice] = "User Successfully Updated"
+    redirect_to user_path(@user)
+  end
+
+  def destroy
+    @user = User.find(session[:user_id])
+    @user.delete
+    session[:user_id] = nil
+    flash[:notice] = 'User Deleted!'
+    redirect_to root_path
   end
 
 end
