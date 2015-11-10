@@ -17,10 +17,27 @@ class CardsController < ApplicationController
     cardcompany = params[:card][:cardcompany]
     user_id = session[:user_id]
 
+    # Add Card Company Automatically Based on Credit Card Pattern
+    # This can be linked to jQuery for dynamic interaction as user enters card
+    if cardnum =~ /\A^4[0-9]{12}(?:[0-9]{3})?$\z/
+      cardcompany = "Visa"
+    elsif cardnum =~ /\A^6(?:011|5[0-9]{2})[0-9]{12}$\z/
+      cardcompany = "Discover"
+    elsif cardnum =~ /\A^3[47][0-9]{13}$\z/
+      cardcompany = "American Express"
+    elsif cardnum =~ /\A^5[1-5][0-9]{14}$\z/
+      cardcompany = "Mastercard"
+    else
+      cardCompany = "Unknown"
+    end
+
 
     @card = Card.create(cardnum: cardnum, cardsecuritynum: cardsecuritynum, cardexp: cardexp, cardcompany: cardcompany, user_id: user_id)
-
-    flash[:notice] = "Card Successfully Added by User # #{user_id}"
+    if @card.save
+      flash[:notice] = "Card Successfully Added by User # #{user_id}"
+    else
+      flash[:notice] = "Error Adding New Card, Please Try Again"
+    end
     redirect_to root_path
   end
 

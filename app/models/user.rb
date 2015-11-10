@@ -5,6 +5,8 @@ class User < ActiveRecord::Base
 
   validates :email, presence: true
   validates :email, confirmation: true
+  validates :email, uniqueness: true
+
   validates :fname, presence: true
   validates :lname, presence: true
 
@@ -14,5 +16,9 @@ class User < ActiveRecord::Base
   validates :password, length: { minimum: 4 }
 
   # validates :password, confirmation: { message: "Password's Do Not Match!!!"}
+
+  # Phone Number Format Validation
+  validates :phone, format: { with: /\A^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$\z/,
+  message: "Please Insert a Valid Phone Number" } 
 
 end

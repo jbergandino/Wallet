@@ -11,7 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151104002825) do
+ActiveRecord::Schema.define(version: 20151110004234) do
+
+  create_table "balances", force: :cascade do |t|
+    t.integer  "user_id"
+    t.decimal  "cash"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "cards", force: :cascade do |t|
     t.string   "cardnum"

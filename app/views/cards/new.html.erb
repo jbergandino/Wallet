@@ -1,12 +1,9 @@
-<h1>Cards#new</h1>
-<p>Find me in app/views/cards/new.html.erb</p>
+<h1>Add A New Card</h1>
 <br>
-
-
 
 <%= form_for @card do |f| %>
 
-  <%= f.label "Enter Credit Card:" %>
+  <%= f.label "Enter Credit Card Number:" %>
   <%= f.text_field :cardnum %>
   <br>
   <br>
@@ -18,11 +15,6 @@
 
   <%= f.label "Expiration Date:" %>
   <%= f.text_field :cardexp %>
-  <br>
-  <br>
-
-  <%= f.label "Card Company:" %>
-  <%= f.text_field :cardcompany %>
   <br>
   <br>
 

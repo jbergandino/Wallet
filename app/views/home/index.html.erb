@@ -1,2 +1,31 @@
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
+<% if session[:user_id] %>
+	<h1>Current Cash Balance</h1>
+<br>
+<% else %>
+	<h1>Please Login or Sign Up!</h1>
+<% end %>
+
+<% if session[:user_id] %>
+	<p>$<%= @balance.cash %></p>
+
+
+	<p><%= link_to 'Send Money', root_path %></p>
+
+
+	<!-- Form to Send Money -->
+	<%= form_tag balance_path(session[:user_id]), :method => :patch do %>
+	<br>
+
+	  <%= label_tag 'Amount to Send:' %>
+	  <%= number_field_tag :cash %>
+	  <br>
+	  <br>
+	  <%= label_tag 'User ID to Transfer Funds To:' %>
+	  <%= text_field_tag :recipient %>
+
+	  <br>
+	  <br>
+	  <%= submit_tag "Transfer Funds"  %>
+
+	<% end %>
+<% end %>

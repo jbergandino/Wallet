@@ -30,6 +30,7 @@ class UsersController < ApplicationController
 
     if user.save
       flash[:alert] = "New User Created, Please Login"
+      cash = Balance.create(user_id:user.id, cash:5000.00)
       redirect_to login_path
     else
       if user.errors.full_messages.any?
