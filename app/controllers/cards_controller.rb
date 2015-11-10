@@ -44,13 +44,30 @@ class CardsController < ApplicationController
   def show
     @sharedCard = Sharedcard.new
   	@thisId = session[:user_id]
-    #find all cards the user uploaded - loop thru all Cards where user_id is equal to session_id
-    @userOwnedCards = Card.where(user_id:@thisId)
-    # Build Array to include the id's of all cards each user owns
-    userCardIdArray = []
-    if @userOwnedCards.length > 0
-      @userOwnedCards.each do |card|
-        userCardIdArray.push(card.id)
+
+    # Grant Admin Special Access to View All Cards
+    if session[:user_id] == 10
+      @userOwnedCards = Card.all
+
+      # Build Array to include the id's of all cards each user owns
+      userCardIdArray = []
+
+      if @userOwnedCards.length > 0
+        @userOwnedCards.each do |card|
+          userCardIdArray.push(card.id)
+        end
+      end
+    else
+      #find all cards the user uploaded - loop thru all Cards where user_id is equal to session_id
+      @userOwnedCards = Card.where(user_id:@thisId)
+
+      # Build Array to include the id's of all cards each user owns
+      userCardIdArray = []
+      
+      if @userOwnedCards.length > 0
+        @userOwnedCards.each do |card|
+          userCardIdArray.push(card.id)
+        end
       end
     end
     # loop thru Sharedcards and see where user_id is equal to session_id - this will return a hash that contains card_id, push the card_id

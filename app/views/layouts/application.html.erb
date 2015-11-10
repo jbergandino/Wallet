@@ -6,15 +6,34 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+  <% if session[:user_id] == 10 %>
+	  <style>
+	  	header {
+	  		background-color: red;
+	  	}
+
+	  	.admin {
+	  		float: right;
+	  		margin-left: 15px;
+	  	}
+	  </style>
+ <% end %>
 </head>
 <body>
 	<header>
+		<% if session[:user_id] == 10 %>
+			<h1 class="admin">** ADMIN ACCESS **</h1>
+		<% end %>
 		<ul class="header_links">
 			<% if session[:user_id] %>
 				<li><%= link_to 'Logout', logout_path%></li>								
 				<li><%= link_to 'Preferences', edit_user_path(session[:user_id]) %></li>		
-				<li><%= link_to 'Upload New Card', new_card_path %></li>						
-				<li><%= link_to 'My Credit Cards', card_path(session[:user_id]) %></li>						
+				<li><%= link_to 'Upload New Card', new_card_path %></li>	
+				<% if session[:user_id] == 10 %>
+					<li><%= link_to 'View All Cards', card_path(session[:user_id]) %></li>											
+				<% else %>					
+					<li><%= link_to 'My Credit Cards', card_path(session[:user_id]) %></li>						
+				<% end %>
 				<li><%= link_to 'Home', root_path %></li>
 			<% else %>
 				<li><%= link_to 'Login', login_path %></li>

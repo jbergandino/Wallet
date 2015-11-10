@@ -1,4 +1,8 @@
-<h1>My Cards</h1>
+<% if session[:user_id] == 10 %>
+	<h1>Admin Access - Viewing All Cards</h1>
+<% else %>
+	<h1>My Cards</h1>
+<% end %>
 <br>
 
 <h2 class="border_test">My Cards:</h2>
