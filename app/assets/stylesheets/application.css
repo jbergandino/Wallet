@@ -30,7 +30,7 @@ sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, labe
 }
 
 .border_test {
-	border: red 2px solid;
+	border: black 2px solid;
 }
 
 
