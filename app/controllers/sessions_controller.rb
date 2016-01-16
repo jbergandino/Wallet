@@ -13,7 +13,7 @@ class SessionsController < ApplicationController
       if @user.password == params[:password] 
         session[:user_id] = @user.id
         flash[:notice] = "Hello #{@user.username}!"
-        cookies[:test_cookie] = "david"
+        cookies[:test_cookie] = "hello"
         redirect_to root_path
       else
         flash[:alert] = "Login Not Successful, Please Try Again"

@@ -1,28 +1,12 @@
 == README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Ruby on Rails Application - Essentially a mixture of Google Wallet and PayPal functionality.
 
-Things you may want to cover:
+Misc Features:
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+Create/Delete/Edit user functionality 
+Admin user accounts with special privileges
+Grant credit card access to others
+Ability to send/receive funds 
+Form validation checking (making sure forms are submitted securely, valid telephone number format submitted, valid password length, etc)
+REGEX Card Algorithm to figure out which type of credit card type has been entered (Visa, MasterCard, etc) and to make sure it is a valid card number
